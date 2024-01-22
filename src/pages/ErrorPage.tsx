@@ -36,7 +36,7 @@ function ErrorAlert(props: ErrorComponentProps) {
           <AlertTitle>Oops! {props.title}</AlertTitle>
           <AlertDescription>{props.message}</AlertDescription>
         </Alert>
-        <Button variant='default' className='w-full mt-2'>
+        <Button variant='default' asChild className='w-full mt-2'>
           <Link to={'/'}>Go back</Link>
         </Button>
       </div>
