@@ -1,4 +1,4 @@
-import config from '../config';
+import { useState } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,9 +12,51 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
+import { useGoogleLogin, CodeResponse } from '@react-oauth/google';
+import { Loader2 } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { BiError } from 'react-icons/bi';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/use-auth';
+import config from '../config';
+import axios from 'axios';
 import loginIllustration from '../assets/login-page-illustration.png';
 
 export default function LoginPage() {
+  const { actions } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isValidating, setIsValidating] = useState(false);
+  const [error, setError] = useState(false);
+
+  const from: string = location.state?.from?.pathname || '/';
+
+  const handleGoogleSuccess = async (codeResponse: CodeResponse) => {
+    setIsValidating(true);
+    setError(false);
+
+    try {
+      const { code } = codeResponse;
+      const response = await axios.post(config.API.AUTH.GOOGLE_LOGIN, { code });
+      const user = response.data.user;
+      const accessToken = response.data.accessToken;
+      actions.update({ user, accessToken });
+      navigate(from);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
+  const handleGoogleLogin = useGoogleLogin({
+    flow: 'auth-code',
+    onSuccess: handleGoogleSuccess,
+
+    onError: (errorResponse) => console.log(errorResponse),
+  });
+
   return (
     <div className='w-full min-h-screen grid grid-rows-[auto_1fr] mlg:grid-rows-1 mlg:grid-cols-2 p-4 gap-6'>
       <div className='bg-[#111] grid text-white rounded-2xl p-8 grid-rows-[auto_1fr]'>
@@ -36,6 +78,7 @@ export default function LoginPage() {
           <h2 className='scroll-m-20 pb-6 text-5xl font-semibold tracking-tight first:mt-0'>
             Sign in
           </h2>
+          {error && <ErrorAlert />}
           <form
             onSubmit={(e) => e.preventDefault()}
             className='w-full grid grid-cols-1 grid-rows-3 gap-3'
@@ -73,11 +116,30 @@ export default function LoginPage() {
             <div>or</div>
             <div className='flex-1 h-[1px] bg-slate-300' />
           </div>
-          <Button variant='outline' className='w-full text-lg border-2 py-6'>
-            <FcGoogle className='text-2xl mr-4' /> Continue with Google
+          <Button
+            variant='outline'
+            className='w-full text-lg border-2 py-6'
+            onClick={handleGoogleLogin}
+            disabled={isValidating}
+          >
+            <FcGoogle className='text-2xl mr-4' />{' '}
+            {isValidating ? 'Logging in' : 'Continue with Google'}
+            {isValidating && <Loader2 className='ml-2 h-4 w-4 animate-spin' />}
           </Button>
         </div>
       </div>
     </div>
+  );
+}
+
+export function ErrorAlert() {
+  return (
+    <Alert variant='destructive' className='mb-4'>
+      <BiError className='h-4 w-4' />
+      <AlertTitle>Error</AlertTitle>
+      <AlertDescription>
+        Something went wrong, please try again
+      </AlertDescription>
+    </Alert>
   );
 }
