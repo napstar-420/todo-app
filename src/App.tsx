@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { router } from './router';
-import { AuthProvider } from './context/auth';
+import { AuthProvider } from './context/auth-provider';
 
 function App() {
   return (

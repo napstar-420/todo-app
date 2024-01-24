@@ -17,13 +17,13 @@ import { Loader2 } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { BiError } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/use-auth';
+import useAuth from '@/hooks/use-auth';
 import config from '../config';
-import axios from 'axios';
+import axios from '@/api/axios';
 import loginIllustration from '../assets/login-page-illustration.png';
 
 export default function LoginPage() {
-  const { actions } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [isValidating, setIsValidating] = useState(false);
@@ -40,7 +40,7 @@ export default function LoginPage() {
       const response = await axios.post(config.API.AUTH.GOOGLE_LOGIN, { code });
       const user = response.data.user;
       const accessToken = response.data.accessToken;
-      actions.update({ user, accessToken });
+      setAuth({ user, accessToken });
       navigate(from);
     } catch (error) {
       setError(true);

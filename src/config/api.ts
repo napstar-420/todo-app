@@ -1,7 +1,9 @@
-const SERVER_URL = import.meta.env.VITE_SERVER;
-
 export default {
   AUTH: {
-    GOOGLE_LOGIN: `${SERVER_URL}/auth/google/login`,
+    GOOGLE_LOGIN: '/auth/google/login',
+    REFRESH_URL: '/auth/google/refresh',
+  },
+  LISTS: {
+    FIND_ALL: '/lists',
   },
 };
