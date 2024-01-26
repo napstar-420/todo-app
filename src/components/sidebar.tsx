@@ -2,7 +2,7 @@ import { FaSignOutAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdDoubleArrow } from 'react-icons/md';
 import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
 import { IconType } from 'react-icons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CreateList } from './create-list';
 import { Input } from './ui/input';
@@ -42,6 +42,7 @@ export default function Sidebar() {
 }
 
 function DefaultLists() {
+  const location = useLocation();
   const lists: DefaultList[] = [
     {
       Icon: MdDoubleArrow,
@@ -73,8 +74,12 @@ function DefaultLists() {
       <div className='grid mt-2'>
         {lists.map(({ Icon, name, href, count }, index) => {
           return (
-            <Button asChild variant='ghost'>
-              <NavLink key={index} to={href} className='gap-2'>
+            <Button
+              asChild
+              variant={location.pathname === href ? 'default' : 'ghost'}
+              className='gap-4'
+            >
+              <NavLink key={index} to={href}>
                 <Icon className='h-4 w-4' />
                 <h4 className='text-sm font-medium'>{name}</h4>
                 <span className='flex-1' />
@@ -89,6 +94,7 @@ function DefaultLists() {
 }
 
 function Lists() {
+  const location = useLocation();
   const lists: List[] = [
     { id: '123', name: 'Home', color: '111', tasksCount: 10 },
     { id: '234', name: 'Work', color: '111', tasksCount: 5 },
@@ -101,9 +107,15 @@ function Lists() {
       <small className='text-xs font-semibold leading-none px-2'>LISTS</small>
       <div className='grid my-2'>
         {lists.map(({ id, name, tasksCount }, index) => {
+          const href = `/lists/${id}`;
+
           return (
-            <Button asChild variant='ghost'>
-              <NavLink key={index} to={`/lists/${id}`} className='gap-2'>
+            <Button
+              asChild
+              variant={location.pathname === href ? 'default' : 'ghost'}
+              className='gap-4'
+            >
+              <NavLink key={index} to={href}>
                 <FaListCheck className='h-4 w-4' />
                 <h4 className='text-sm font-medium'>{name}</h4>
                 <span className='flex-1' />
@@ -119,35 +131,36 @@ function Lists() {
 }
 
 function Tags() {
+  const location = useLocation();
   const tags: Tag[] = [
     { id: '1', name: 'Tag1' },
     { id: '2', name: 'Tag2' },
     { id: '3', name: 'Tag3' },
     { id: '4', name: 'Tag4' },
     { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
-    { id: '5', name: 'Tag5' },
+    { id: '6', name: 'Tag5' },
+    { id: '7', name: 'Tag5' },
+    { id: '8', name: 'Tag5' },
+    { id: '9', name: 'Tag5' },
+    { id: '10', name: 'Tag5' },
   ];
 
   return (
     <div className='my-4'>
       <small className='text-xs font-semibold leading-none px-2'>TAGS</small>
       <div className='mt-2 flex flex-wrap gap-2 px-2 py-2'>
-        {tags.map(({ id, name }, index) => (
-          <NavLink to={`tags/${id}`} key={index} className={``}>
-            <Badge variant='secondary'>#{name}</Badge>
-          </NavLink>
-        ))}
+        {tags.map(({ id, name }, index) => {
+          const href = `/tags/${id}`;
+          return (
+            <NavLink to={href} key={index} className={``}>
+              <Badge
+                variant={location.pathname === href ? 'default' : 'secondary'}
+              >
+                #{name}
+              </Badge>
+            </NavLink>
+          );
+        })}
       </div>
     </div>
   );
