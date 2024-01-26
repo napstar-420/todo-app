@@ -3,7 +3,8 @@ export default {
     GOOGLE_LOGIN: '/auth/google/login',
     REFRESH_URL: '/auth/google/refresh',
   },
-  LISTS: {
-    FIND_ALL: '/lists',
-  },
+  LISTS: '/lists',
+  TASKS: '/tasks',
+  SUBTASKS: '/subtasks',
+  TAGS: '/tags',
 };

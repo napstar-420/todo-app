@@ -22,7 +22,7 @@ export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />} errorElement={<ErrorPage />}>
       <Route path='login' element={<LoginPage />} />
-      <Route path='Logout' element={<Logout />} />
+      <Route path='logout' element={<Logout />} />
 
       <Route element={<PersistLogin />}>
         {/* Below Routes require authentication */}

@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useTheme } from '@/context/theme-provider';
+import { useTheme } from '@/hooks/use-theme';
 
 export function ToggleTheme() {
   const { setTheme } = useTheme();
@@ -21,13 +21,22 @@ export function ToggleTheme() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>
+        <DropdownMenuItem
+          className='cursor-pointer'
+          onClick={() => setTheme('light')}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
+        <DropdownMenuItem
+          className='cursor-pointer'
+          onClick={() => setTheme('dark')}
+        >
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
+        <DropdownMenuItem
+          className='cursor-pointer'
+          onClick={() => setTheme('system')}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

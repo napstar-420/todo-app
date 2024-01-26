@@ -18,9 +18,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { BiError } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/use-auth';
-import config from '../config';
 import axios from '@/api/axios';
-import loginIllustration from '../assets/login-page-illustration.png';
+import API_ROUTES from '../api/routes';
 import { Separator } from '@/components/ui/separator';
 
 export default function LoginPage() {
@@ -38,7 +37,7 @@ export default function LoginPage() {
 
     try {
       const { code } = codeResponse;
-      const response = await axios.post(config.API.AUTH.GOOGLE_LOGIN, { code });
+      const response = await axios.post(API_ROUTES.AUTH.GOOGLE_LOGIN, { code });
       const user = response.data.user;
       const accessToken = response.data.accessToken;
       setAuth({ user, accessToken });
@@ -82,17 +81,19 @@ export default function LoginPage() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Opps! We can't log you in</AlertDialogTitle>
+                <AlertDialogTitle className='dark:text-white'>
+                  Opps! We can't log you in
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                   I haven't supported login with email and password, although it
-                  is more easy than login with Google, but i am lazy XD. So yeah
-                  just{' '}
+                  requires less code than login with Google, but i am lazy XD.
+                  So yeah just{' '}
                   <span className='font-semibold'>Continue with Google</span>{' '}
                   and enjoy the app.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogAction>No worries</AlertDialogAction>
+                <AlertDialogAction>I understand</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
