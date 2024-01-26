@@ -15,10 +15,7 @@ export function CreateList() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant='outline'
-          className='w-full bg-transparent py-1 hover:bg-gray-300 active:bg-gray-400 border-gray-300'
-        >
+        <Button variant='outline' className='w-full'>
           <IoMdAdd className='h-4 w-4' /> Create List
         </Button>
       </DialogTrigger>

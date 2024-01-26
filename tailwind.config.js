@@ -17,13 +17,6 @@ module.exports = {
       },
     },
     extend: {
-      colors: {
-        primary: '#ffd43b',
-        'primary-darken': '#e3bd34',
-      },
-      screens: {
-        'mlg': '920px'
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

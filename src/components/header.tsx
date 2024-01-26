@@ -7,12 +7,12 @@ export default function Header() {
     <div className='px-4 py-3 border-b-2'>
       <div className='flex items-center gap-8'>
         <button>
-          <GiHamburgerMenu className='h-6 w-6' />
+          <GiHamburgerMenu className='h-4 w-4' />
         </button>
         <NavLink to={'/'}>
-          <h3 className='text-gray-600 scroll-m-20 text-2xl font-semibold tracking-tight'>
+          <h4 className='scroll-m-20 text-xl font-semibold tracking-tight'>
             {config.APP_NAME}
-          </h3>
+          </h4>
         </NavLink>
       </div>
     </div>

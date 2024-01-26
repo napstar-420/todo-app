@@ -1,4 +1,3 @@
-import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaSearch, FaSignOutAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdDoubleArrow } from 'react-icons/md';
 import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
@@ -6,6 +5,8 @@ import { IconType } from 'react-icons';
 import { NavLink } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CreateList } from './create-list';
+import { Input } from './ui/input';
+import { Badge } from './ui/badge';
 
 interface DefaultList {
   Icon: IconType;
@@ -28,8 +29,8 @@ interface Tag {
 
 export default function Sidebar() {
   return (
-    <div className='w-80 p-4 border-r-2 grid grid-rows-[auto_1fr_auto]'>
-      <Header />
+    <div className='w-80 py-4 px-2 border-r-2 grid grid-rows-[auto_1fr_auto]'>
+      <Input type='text' placeholder='Search' />
       <div>
         <DefaultLists />
         <Lists />
@@ -68,33 +69,18 @@ function DefaultLists() {
 
   return (
     <div className='my-4'>
-      <small className='text-xs font-semibold text-gray-500 leading-none'>
-        TASKS
-      </small>
+      <small className='text-xs font-semibold leading-none px-2'>TASKS</small>
       <div className='grid mt-2'>
         {lists.map(({ Icon, name, href, count }, index) => {
           return (
-            <NavLink
-              key={index}
-              to={href}
-              className={({ isActive, isPending }) =>
-                (isActive
-                  ? 'bg-gray-300 '
-                  : isPending
-                  ? 'bg-gray-100 '
-                  : 'active:bg-gray-300 hover:bg-gray-200 ') +
-                'flex gap-2 items-center justify-start w-full text-gray-500  px-2 py-2 rounded-lg '
-              }
-            >
-              <Icon className='h-4 w-4' />
-              <h4 className='text-sm font-medium'>{name}</h4>
-              <span className='flex-1' />
-              {count && (
-                <small className='block leading-none bg-gray-400 font-semibold text-gray-100 px-2 py-1 text-xs rounded-lg'>
-                  {count}
-                </small>
-              )}
-            </NavLink>
+            <Button asChild variant='ghost'>
+              <NavLink key={index} to={href} className='gap-2'>
+                <Icon className='h-4 w-4' />
+                <h4 className='text-sm font-medium'>{name}</h4>
+                <span className='flex-1' />
+                {count && <Badge variant='default'>{count}</Badge>}
+              </NavLink>
+            </Button>
           );
         })}
       </div>
@@ -112,33 +98,18 @@ function Lists() {
 
   return (
     <div className='my-4'>
-      <small className='text-xs font-semibold text-gray-500 leading-none'>
-        Lists
-      </small>
+      <small className='text-xs font-semibold leading-none px-2'>LISTS</small>
       <div className='grid my-2'>
-        {lists.map(({ id, name, color, tasksCount }, index) => {
+        {lists.map(({ id, name, tasksCount }, index) => {
           return (
-            <NavLink
-              key={index}
-              to={id}
-              className={({ isActive, isPending }) =>
-                (isActive
-                  ? 'bg-gray-300 '
-                  : isPending
-                  ? 'bg-gray-100 '
-                  : 'active:bg-gray-300 hover:bg-gray-200 ') +
-                'flex gap-2 items-center justify-start w-full text-gray-500 px-2 py-2 rounded-lg '
-              }
-            >
-              <span className={`w-4 h-4 block rounded-[4px] bg-[#${color}]`} />
-              <h4 className='text-sm font-medium'>{name}</h4>
-              <span className='flex-1' />
-              {tasksCount && (
-                <small className='block leading-none bg-gray-400 font-semibold text-gray-100 px-2 py-1 text-xs rounded-lg'>
-                  {tasksCount}
-                </small>
-              )}
-            </NavLink>
+            <Button asChild variant='ghost'>
+              <NavLink key={index} to={`/lists/${id}`} className='gap-2'>
+                <FaListCheck className='h-4 w-4' />
+                <h4 className='text-sm font-medium'>{name}</h4>
+                <span className='flex-1' />
+                {tasksCount && <Badge variant='default'>{tasksCount}</Badge>}
+              </NavLink>
+            </Button>
           );
         })}
       </div>
@@ -181,10 +152,8 @@ function Tags() {
 
   return (
     <div className='my-4'>
-      <small className='text-xs font-semibold text-gray-500 leading-none'>
-        Tags
-      </small>
-      <div className='mt-2 flex flex-wrap gap-2'>
+      <small className='text-xs font-semibold leading-none px-2'>TAGS</small>
+      <div className='mt-2 flex flex-wrap gap-2 px-2 py-2'>
         {tags.map(({ id, name }, index) => (
           <NavLink
             to={`tags/${id}`}
@@ -200,27 +169,10 @@ function Tags() {
   );
 }
 
-function Header() {
-  return (
-    <div className='flex items-center gap-4 border px-4 py-2 border-gray-300 rounded-xl'>
-      <FaSearch className='text-gray-500' />
-      <input
-        type='text'
-        placeholder='Search'
-        className='bg-transparent focus:outline-none focus:border-none placeholder:text-gray-400 placeholder:font-semibold text-gray-500 font-semibold'
-      />
-    </div>
-  );
-}
-
 function Footer() {
   return (
     <footer>
-      <Button
-        asChild
-        variant='outline'
-        className='w-full bg-transparent hover:bg-gray-300 active:bg-gray-400 border-gray-300'
-      >
+      <Button asChild variant='outline' className='w-full'>
         <NavLink to={'/logout'}>
           <FaSignOutAlt className='mr-2 h-4 w-4 rotate-180' />
           Sign out
