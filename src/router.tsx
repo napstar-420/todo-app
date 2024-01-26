@@ -3,19 +3,19 @@ import {
   createBrowserRouter,
   Route,
 } from 'react-router-dom';
-import AppLayout from './layout/AppLayout';
-import RootLayout from './layout/RootLayout';
-import ErrorPage from './pages/ErrorPage';
-import LoginPage from './pages/LoginPage';
-import RequireAuth from './components/requireAuth';
-import PersistLogin from './components/persistant-login';
-import TodayPage from './pages/TodayPage';
-import UpcomingPage from './pages/UpcomingPage';
-import CalendarPage from './pages/CalendarPage';
-import StickWallPage from './pages/StickWallPage';
-import ListPage from './pages/ListPage';
-import TaskPage from './pages/TaskPage';
-import Logout from './pages/Logout';
+import AppLayout from './layout/app-layout';
+import RootLayout from './layout/root-layout';
+import ErrorPage from './pages/error-page';
+import LoginPage from './pages/login-page';
+import RequireAuth from './components/require-auth';
+import PersistLogin from './components/persistent-login';
+import TodayPage from './pages/today-page';
+import UpcomingPage from './pages/upcoming-page';
+import CalendarPage from './pages/calendar-page';
+import StickWallPage from './pages/stickywall-page';
+import ListPage from './pages/list-page';
+import TaskPage from './pages/task-page';
+import Logout from './pages/logout-page';
 import PageNotFound from './pages/404';
 
 export const router = createBrowserRouter(
