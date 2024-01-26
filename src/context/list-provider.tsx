@@ -11,14 +11,14 @@ import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
 import { MdDoubleArrow } from 'react-icons/md';
 import appRoutes from '../config/app-routes';
 
-enum DefaultListID {
+export enum DefaultListID {
   CALENDER = 'calender',
   TODAY = 'today',
   UPCOMING = 'upcoming',
   STICKY_WALL = 'sticky-wall',
 }
 
-interface List {
+export interface List {
   readonly id: string;
   name: string;
   color: string;

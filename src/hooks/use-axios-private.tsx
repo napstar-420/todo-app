@@ -2,10 +2,13 @@ import { axiosPrivate } from '../api/axios';
 import { useEffect } from 'react';
 import useRefreshToken from './use-refresh-token';
 import useAuth from './use-auth';
+import { useToast } from '@/components/ui/use-toast';
+import { ErrorResponse } from '../types';
 
-const useAxiosPrivate = () => {
+export const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const { auth } = useAuth();
+  const { toast } = useToast();
 
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
@@ -28,6 +31,19 @@ const useAxiosPrivate = () => {
           prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return axiosPrivate(prevRequest);
         }
+
+        if (error?.response?.data) {
+          const { message } = error?.response?.data as ErrorResponse;
+          toast({
+            title: 'Error',
+            description: message,
+          });
+        } else {
+          toast({
+            title: 'Error',
+            description: 'Something went wrong',
+          });
+        }
         return Promise.reject(error);
       }
     );
@@ -40,5 +56,3 @@ const useAxiosPrivate = () => {
 
   return axiosPrivate;
 };
-
-export default useAxiosPrivate;
