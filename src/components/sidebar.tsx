@@ -1,4 +1,4 @@
-import { FaSearch, FaSignOutAlt, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaSignOutAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import { MdDoubleArrow } from 'react-icons/md';
 import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
 import { IconType } from 'react-icons';
@@ -29,7 +29,7 @@ interface Tag {
 
 export default function Sidebar() {
   return (
-    <div className='w-80 py-4 px-2 border-r-2 grid grid-rows-[auto_1fr_auto]'>
+    <div className='w-80 py-4 px-2 border-r-2 dark:border-r-zinc-800 grid grid-rows-[auto_1fr_auto]'>
       <Input type='text' placeholder='Search' />
       <div>
         <DefaultLists />
@@ -78,7 +78,7 @@ function DefaultLists() {
                 <Icon className='h-4 w-4' />
                 <h4 className='text-sm font-medium'>{name}</h4>
                 <span className='flex-1' />
-                {count && <Badge variant='default'>{count}</Badge>}
+                {count && <Badge variant='secondary'>{count}</Badge>}
               </NavLink>
             </Button>
           );
@@ -107,7 +107,7 @@ function Lists() {
                 <FaListCheck className='h-4 w-4' />
                 <h4 className='text-sm font-medium'>{name}</h4>
                 <span className='flex-1' />
-                {tasksCount && <Badge variant='default'>{tasksCount}</Badge>}
+                {tasksCount && <Badge variant='secondary'>{tasksCount}</Badge>}
               </NavLink>
             </Button>
           );
@@ -139,29 +139,13 @@ function Tags() {
     { id: '5', name: 'Tag5' },
   ];
 
-  const colors = [
-    '#fee2e2',
-    '#dcfce7',
-    '#dbeafe',
-    '#cffafe',
-    '#fef3c7',
-    '#ecfccb',
-    '#fae8ff',
-    '#ffedd5',
-  ];
-
   return (
     <div className='my-4'>
       <small className='text-xs font-semibold leading-none px-2'>TAGS</small>
       <div className='mt-2 flex flex-wrap gap-2 px-2 py-2'>
         {tags.map(({ id, name }, index) => (
-          <NavLink
-            to={`tags/${id}`}
-            key={index}
-            className={`px-2 py-1 font-medium rounded-sm text-xs bg-opacity-50`}
-            style={{ backgroundColor: colors[index % colors.length] }}
-          >
-            {name}
+          <NavLink to={`tags/${id}`} key={index} className={``}>
+            <Badge variant='secondary'>#{name}</Badge>
           </NavLink>
         ))}
       </div>

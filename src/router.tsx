@@ -3,11 +3,12 @@ import {
   createBrowserRouter,
   Route,
 } from 'react-router-dom';
+import AppLayout from './layout/AppLayout';
+import RootLayout from './layout/RootLayout';
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import RequireAuth from './components/requireAuth';
 import PersistLogin from './components/persistant-login';
-import AppLayout from './layout/AppLayout';
 import TodayPage from './pages/TodayPage';
 import UpcomingPage from './pages/UpcomingPage';
 import CalendarPage from './pages/CalendarPage';
@@ -19,7 +20,7 @@ import PageNotFound from './pages/404';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' errorElement={<ErrorPage />}>
+    <Route path='/' element={<RootLayout />} errorElement={<ErrorPage />}>
       <Route path='login' element={<LoginPage />} />
       <Route path='Logout' element={<Logout />} />
 
