@@ -28,7 +28,7 @@ interface Tag {
 
 export default function Sidebar() {
   return (
-    <div className='bg-gray-100 w-80 p-4 rounded-2xl text-gray-700 grid grid-rows-[auto_1fr_auto]'>
+    <div className='w-80 p-4 border-r-2 grid grid-rows-[auto_1fr_auto]'>
       <Header />
       <div>
         <DefaultLists />
@@ -202,23 +202,13 @@ function Tags() {
 
 function Header() {
   return (
-    <div>
-      <header className='flex justify-between'>
-        <h3 className='scroll-m-20 text-2xl font-semibold tracking-tight'>
-          Menu
-        </h3>
-        <button>
-          <GiHamburgerMenu className='h-6 w-6 text-gray-500' />
-        </button>
-      </header>
-      <div className='my-2 flex items-center gap-4 border px-4 py-2 border-gray-300 rounded-xl'>
-        <FaSearch className='text-gray-500' />
-        <input
-          type='text'
-          placeholder='Search'
-          className='bg-transparent focus:outline-none focus:border-none placeholder:text-gray-400 placeholder:font-semibold text-gray-500 font-semibold'
-        />
-      </div>
+    <div className='flex items-center gap-4 border px-4 py-2 border-gray-300 rounded-xl'>
+      <FaSearch className='text-gray-500' />
+      <input
+        type='text'
+        placeholder='Search'
+        className='bg-transparent focus:outline-none focus:border-none placeholder:text-gray-400 placeholder:font-semibold text-gray-500 font-semibold'
+      />
     </div>
   );
 }
