@@ -1,68 +1,22 @@
-import { FaSignOutAlt, FaRegCalendarAlt } from 'react-icons/fa';
-import { MdDoubleArrow } from 'react-icons/md';
-import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
-import { IconType } from 'react-icons';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { FaListCheck } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import { CreateList } from './create-list';
 import { Input } from './ui/input';
+import { useList } from '@/hooks/use-lists';
 import ListItem from './list-item';
-import { useState } from 'react';
 import TagItem from './tag-item';
 import appRoutes from '@/config/app-routes';
-
-interface DefaultList {
-  Icon: IconType;
-  name: string;
-  tasksCount?: number;
-  href: string;
-}
-
-interface List {
-  id: string;
-  name: string;
-  color: string;
-  tasksCount: number;
-}
 
 interface Tag {
   id: string;
   name: string;
 }
 
-const defaultLists: DefaultList[] = [
-  {
-    Icon: MdDoubleArrow,
-    name: 'Upcoming',
-    tasksCount: 24,
-    href: appRoutes.UP_COMING,
-  },
-  {
-    Icon: FaListCheck,
-    name: 'Today',
-    tasksCount: 24,
-    href: appRoutes.ROOT,
-  },
-  {
-    Icon: FaRegCalendarAlt,
-    name: 'Calendar',
-    href: appRoutes.CALENDAR,
-  },
-  {
-    Icon: FaNoteSticky,
-    name: 'Sticky wall',
-    href: appRoutes.STICKY_WALL,
-  },
-];
-
 export default function Sidebar() {
-  const [lists, setLists] = useState<List[]>([
-    { id: '123', name: 'Home', color: '111', tasksCount: 10 },
-    { id: '234', name: 'Work', color: '111', tasksCount: 5 },
-    { id: '222', name: 'Outside', color: '111', tasksCount: 9 },
-    { id: '69', name: 'Hobbies', color: '111', tasksCount: 100 },
-  ]);
-
+  const { lists, defaultLists } = useList();
   const [tags, setTags] = useState<Tag[]>([
     { id: '1', name: 'Tag1' },
     { id: '2', name: 'Tag2' },
