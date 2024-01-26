@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/context-menu';
 
 interface ListItemProps {
+  id: string;
   name: string;
   href: string;
   tasksCount?: number;
   Icon?: IconType;
-  key?: number | string;
   addContextMenu?: boolean;
 }
 
@@ -25,7 +25,6 @@ export default function ListItem({
   tasksCount,
   Icon,
   href,
-  key,
   addContextMenu,
 }: ListItemProps) {
   const location = useLocation();
@@ -36,7 +35,7 @@ export default function ListItem({
       variant={location.pathname === href ? 'default' : 'ghost'}
       className='gap-4 w-full'
     >
-      <NavLink key={key} to={href}>
+      <NavLink to={href}>
         {Icon && <Icon className='h-4 w-4' />}
         <h4 className='text-sm font-medium'>{name}</h4>
         <span className='flex-1' />

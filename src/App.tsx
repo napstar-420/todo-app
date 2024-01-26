@@ -4,6 +4,7 @@ import { router } from './router';
 import { AuthProvider } from './context/auth-provider';
 import { ThemeProvider } from './context/theme-provider';
 import { ListProvider } from './context/list-provider';
+import { TagProvider } from './context/tag-provider';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
         <AuthProvider>
           <ListProvider>
-            <RouterProvider router={router} />
+            <TagProvider>
+              <RouterProvider router={router} />
+            </TagProvider>
           </ListProvider>
         </AuthProvider>
       </ThemeProvider>

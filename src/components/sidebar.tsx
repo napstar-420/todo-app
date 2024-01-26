@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaListCheck } from 'react-icons/fa6';
@@ -9,26 +8,11 @@ import { useList } from '@/hooks/use-lists';
 import ListItem from './list-item';
 import TagItem from './tag-item';
 import appRoutes from '@/config/app-routes';
-
-interface Tag {
-  id: string;
-  name: string;
-}
+import { useTag } from '@/hooks/use-tag';
 
 export default function Sidebar() {
   const { lists, defaultLists } = useList();
-  const [tags, setTags] = useState<Tag[]>([
-    { id: '1', name: 'Tag1' },
-    { id: '2', name: 'Tag2' },
-    { id: '3', name: 'Tag3' },
-    { id: '4', name: 'Tag4' },
-    { id: '5', name: 'Tag5' },
-    { id: '6', name: 'Tag5' },
-    { id: '7', name: 'Tag5' },
-    { id: '8', name: 'Tag5' },
-    { id: '9', name: 'Tag5' },
-    { id: '10', name: 'Tag5' },
-  ]);
+  const { tags } = useTag();
 
   return (
     <div className='w-80 py-4 px-2 border-r-2 dark:border-r-zinc-800 grid grid-rows-[auto_1fr_auto]'>
@@ -39,14 +23,8 @@ export default function Sidebar() {
             TASKS
           </small>
           <div className='grid mt-2'>
-            {defaultLists.map(({ Icon, name, href, tasksCount }, index) => (
-              <ListItem
-                name={name}
-                Icon={Icon}
-                href={href}
-                tasksCount={tasksCount}
-                key={index}
-              />
+            {defaultLists.map((list) => (
+              <ListItem key={list.id} {...list} />
             ))}
           </div>
         </div>
@@ -55,13 +33,11 @@ export default function Sidebar() {
             LISTS
           </small>
           <div className='grid my-2'>
-            {lists.map(({ id, name, tasksCount }, index) => (
+            {lists.map((list) => (
               <ListItem
-                name={name}
+                {...list}
                 Icon={FaListCheck}
-                href={appRoutes.LIST(id)}
-                tasksCount={tasksCount}
-                key={index}
+                href={appRoutes.LIST(list.id)}
                 addContextMenu={true}
               />
             ))}
@@ -73,8 +49,8 @@ export default function Sidebar() {
             TAGS
           </small>
           <div className='mt-2 flex flex-wrap gap-2 px-2 py-2'>
-            {tags.map(({ id, name }, index) => (
-              <TagItem name={name} key={index} href={appRoutes.TAG(id)} />
+            {tags.map((tag) => (
+              <TagItem {...tag} key={tag.id} href={appRoutes.TAG(tag.id)} />
             ))}
           </div>
         </div>

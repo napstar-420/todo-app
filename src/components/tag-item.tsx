@@ -2,15 +2,15 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Badge } from './ui/badge';
 
 interface TagItemProps {
+  id: string;
   name: string;
   href: string;
-  key?: number | string;
 }
 
-export default function TagItem({ name, href, key }: TagItemProps) {
+export default function TagItem({ name, href }: TagItemProps) {
   const location = useLocation();
   return (
-    <NavLink to={href} key={key}>
+    <NavLink to={href}>
       <Badge variant={location.pathname === href ? 'default' : 'secondary'}>
         #{name}
       </Badge>
