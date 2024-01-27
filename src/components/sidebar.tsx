@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { FaListCheck } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import { CreateList } from './create-list';
 import { Input } from './ui/input';
@@ -37,7 +36,6 @@ export default function Sidebar() {
               <ListItem
                 key={list._id}
                 {...list}
-                Icon={FaListCheck}
                 href={appRoutes.LIST(list._id)}
                 addContextMenu={true}
               />
