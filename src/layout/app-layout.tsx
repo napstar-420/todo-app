@@ -3,13 +3,16 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '@/components/sidebar';
 import Header from '@/components/header';
 import { useList } from '@/hooks/use-lists';
+import { useTag } from '@/hooks/use-tag';
 
 export default function AppLayout() {
   const { updateLists } = useList();
+  const { updateTags } = useTag();
 
   useEffect(() => {
     const controller = new AbortController();
     updateLists(controller);
+    updateTags(controller);
     return () => controller.abort();
   }, []);
 
