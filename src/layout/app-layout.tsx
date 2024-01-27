@@ -22,7 +22,9 @@ export default function AppLayout() {
     const controller = new AbortController();
 
     const getLists = async () => {
-      const response = await axios.get(routes.LISTS);
+      const response = await axios.get(routes.LISTS, {
+        signal: controller.signal,
+      });
       const data: GetAllListsResponseDto =
         response.data as GetAllListsResponseDto;
       const { lists, todayTasksCount, upcomingTasksCount } = data;
