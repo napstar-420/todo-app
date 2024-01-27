@@ -15,12 +15,13 @@ import { useAxiosPrivate } from '@/hooks/use-axios-private';
 import routes from '@/api/routes';
 import appRoutes from '@/config/app-routes';
 import { useList } from '@/hooks/use-lists';
+import UpdateList from './update-list';
 
 interface ListItemProps {
   _id: string;
   name: string;
   href: string;
-  color?: string;
+  color: string;
   tasksCount?: number;
   Icon?: IconType;
   addContextMenu?: boolean;
@@ -80,9 +81,13 @@ export default function ListItem({
         <NavItemLink />
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem className='cursor-pointer flex gap-2'>
-          <FaEdit />
-          Update
+        <ContextMenuItem className='' asChild>
+          <UpdateList name={name} color={color} _id={_id}>
+            <>
+              <FaEdit />
+              Update
+            </>
+          </UpdateList>
         </ContextMenuItem>
         <ContextMenuItem
           className='cursor-pointer flex gap-2'

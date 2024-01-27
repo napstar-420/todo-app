@@ -10,8 +10,10 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { FaListCheck, FaNoteSticky } from 'react-icons/fa6';
 import { MdDoubleArrow } from 'react-icons/md';
 import appRoutes from '../config/app-routes';
+import { useAxiosPrivate } from '@/hooks/use-axios-private';
+import routes from '@/api/routes';
 
-export enum DefaultListID {
+enum DefaultListID {
   CALENDER = 'calender',
   TODAY = 'today',
   UPCOMING = 'upcoming',
@@ -41,14 +43,14 @@ interface ListProviderState {
   lists: List[];
   setLists: Dispatch<SetStateAction<List[]>>;
   defaultLists: DefaultList[];
-  updateDefaultListsCount: (listID: DefaultListID, newCount: number) => void;
+  updateLists: (controller?: AbortController) => Promise<void>;
 }
 
 const initialState: ListProviderState = {
   lists: [],
   setLists: (lists) => lists,
   defaultLists: [],
-  updateDefaultListsCount: () => {},
+  updateLists: async () => {},
 };
 
 const initialDefaultLists: DefaultList[] = [
@@ -84,9 +86,11 @@ export const ListProviderContext =
   createContext<ListProviderState>(initialState);
 
 export const ListProvider = ({ children }: ListProviderProps) => {
+  const axios = useAxiosPrivate();
   const [lists, setLists] = useState<List[]>([]);
   const [defaultLists, setDefaultLists] =
     useState<DefaultList[]>(initialDefaultLists);
+
   const updateDefaultListsCount = (
     listID: DefaultListID,
     newCount: number
@@ -98,9 +102,21 @@ export const ListProvider = ({ children }: ListProviderProps) => {
     );
   };
 
+  const updateLists = async (controller?: AbortController) => {
+    const response = await axios.get(routes.LISTS, {
+      signal: controller?.signal,
+    });
+
+    const data = response.data;
+    const { lists, todayTasksCount, upcomingTasksCount } = data;
+    setLists(lists);
+    updateDefaultListsCount(DefaultListID.TODAY, todayTasksCount);
+    updateDefaultListsCount(DefaultListID.UPCOMING, upcomingTasksCount);
+  };
+
   return (
     <ListProviderContext.Provider
-      value={{ lists, setLists, defaultLists, updateDefaultListsCount }}
+      value={{ lists, setLists, defaultLists, updateLists }}
     >
       {children}
     </ListProviderContext.Provider>
