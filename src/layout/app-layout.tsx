@@ -39,7 +39,7 @@ export default function AppLayout() {
       isMounted = false;
       controller.abort();
     };
-  }, []);
+  }, [axios, setLists]);
 
   return (
     <div className='h-screen grid grid-rows-[auto_1fr]'>

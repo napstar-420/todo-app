@@ -24,7 +24,7 @@ export default function Sidebar() {
           </small>
           <div className='grid mt-2'>
             {defaultLists.map((list) => (
-              <ListItem key={list.id} {...list} />
+              <ListItem key={list.id} _id={list.id} {...list} />
             ))}
           </div>
         </div>
@@ -35,9 +35,10 @@ export default function Sidebar() {
           <div className='grid my-2'>
             {lists.map((list) => (
               <ListItem
+                key={list._id}
                 {...list}
                 Icon={FaListCheck}
-                href={appRoutes.LIST(list.id)}
+                href={appRoutes.LIST(list._id)}
                 addContextMenu={true}
               />
             ))}

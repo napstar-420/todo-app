@@ -19,7 +19,7 @@ export enum DefaultListID {
 }
 
 export interface List {
-  readonly id: string;
+  readonly _id: string;
   name: string;
   color: string;
   tasksCount: number;

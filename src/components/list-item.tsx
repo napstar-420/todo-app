@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/context-menu';
 
 interface ListItemProps {
-  id: string;
+  _id: string;
   name: string;
   href: string;
   tasksCount?: number;
