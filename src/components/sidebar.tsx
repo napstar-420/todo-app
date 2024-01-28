@@ -14,9 +14,11 @@ export default function Sidebar() {
   const { tags } = useTag();
 
   return (
-    <div className='w-80 py-4 px-2 border-r-2 dark:border-r-zinc-800 grid grid-rows-[auto_1fr_auto]'>
-      <Input type='text' placeholder='Search' />
-      <div className='flex flex-col gap-4 my-4'>
+    <div className='w-80 border-r-2 dark:border-r-zinc-800 grid grid-rows-[auto_1fr_auto]'>
+      <div className='border-b-2 dark:border-b-zinc-800 px-3 py-3'>
+        <Input type='text' placeholder='Search' />
+      </div>
+      <div className='flex flex-col gap-4 my-4 px-2'>
         <div>
           <small className='text-xs font-semibold leading-none px-2'>
             TASKS
@@ -54,7 +56,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-      <footer>
+      <footer className='px-2'>
         <Button asChild variant='outline' className='w-full'>
           <NavLink to={'/logout'}>
             <FaSignOutAlt className='mr-2 h-4 w-4 rotate-180' />

@@ -4,7 +4,7 @@ import { Toaster as Sooner } from '@/components/ui/sonner';
 
 export default function RootLayout() {
   return (
-    <div className='dark:bg-zinc-950 dark:text-white'>
+    <div className='bg-theme-primary text-theme-primary'>
       <Outlet />
       <Toaster />
       <Sooner />

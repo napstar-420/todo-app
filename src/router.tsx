@@ -17,6 +17,7 @@ import ListPage from './pages/list-page';
 import TaskPage from './pages/task-page';
 import Logout from './pages/logout-page';
 import PageNotFound from './pages/404';
+import CreateTask from './pages/create-task-page';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,8 +35,10 @@ export const router = createBrowserRouter(
               <Route path='calendar' element={<CalendarPage />} />
               <Route path='sticky-wall' element={<StickWallPage />} />
               <Route path='tags' element={<div>Tags</div>} />
-              <Route path=':listID' element={<ListPage />} />
-              <Route path=':taskID' element={<TaskPage />} />
+              <Route path=':listID' element={<ListPage />}>
+                <Route path='new' element={<CreateTask />} />
+                <Route path=':taskID' element={<TaskPage />} />
+              </Route>
               <Route path='*' element={<PageNotFound />} />
             </Route>
           </Route>

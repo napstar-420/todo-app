@@ -1,7 +1,7 @@
 import { IconType } from 'react-icons';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
@@ -21,7 +21,7 @@ interface ListItemProps {
   _id: string;
   name: string;
   href: string;
-  color: string;
+  color?: string;
   tasksCount?: number;
   Icon?: IconType;
   addContextMenu?: boolean;
@@ -36,7 +36,6 @@ export default function ListItem({
   href,
   addContextMenu,
 }: ListItemProps) {
-  const location = useLocation();
   const navigate = useNavigate();
   const axios = useAxiosPrivate();
   const { setLists } = useList();
@@ -54,7 +53,7 @@ export default function ListItem({
   const NavItemLink = () => (
     <Button
       asChild
-      variant={location.pathname === href ? 'default' : 'ghost'}
+      variant={listID === _id ? 'default' : 'ghost'}
       className='gap-4 w-full'
     >
       <NavLink to={href}>
@@ -82,7 +81,7 @@ export default function ListItem({
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem className='' asChild>
-          <UpdateList name={name} color={color} _id={_id}>
+          <UpdateList name={name} color={color || '#111'} _id={_id}>
             <>
               <FaEdit />
               Update

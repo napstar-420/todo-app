@@ -38,7 +38,7 @@ export const TagProvider = ({ children }: TagProviderProps) => {
     const response = await axios.get(routes.TAGS, {
       signal: controller?.signal,
     });
-    console.log(response.data);
+    setTags(response.data);
   };
 
   return (

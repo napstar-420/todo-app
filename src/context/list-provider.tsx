@@ -12,19 +12,13 @@ import { MdDoubleArrow } from 'react-icons/md';
 import appRoutes from '../config/app-routes';
 import { useAxiosPrivate } from '@/hooks/use-axios-private';
 import routes from '@/api/routes';
+import { List } from '@/dto';
 
 enum DefaultListID {
   CALENDER = 'calender',
   TODAY = 'today',
   UPCOMING = 'upcoming',
   STICKY_WALL = 'sticky-wall',
-}
-
-export interface List {
-  readonly _id: string;
-  name: string;
-  color: string;
-  tasksCount: number;
 }
 
 interface DefaultList {
