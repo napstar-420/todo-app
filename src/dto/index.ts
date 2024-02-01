@@ -17,9 +17,10 @@ export interface Task {
   dueDate: string;
   list: List;
   tags: string[];
-  subTasks: string[];
+  subtasks: Subtask[];
   completed: boolean;
   completedAt: string;
+  subtasksCount: number;
 }
 
 export interface List {

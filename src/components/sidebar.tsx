@@ -56,7 +56,7 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-      <footer className='px-2'>
+      <footer className='px-2 pb-4'>
         <Button asChild variant='outline' className='w-full'>
           <NavLink to={'/logout'}>
             <FaSignOutAlt className='mr-2 h-4 w-4 rotate-180' />
