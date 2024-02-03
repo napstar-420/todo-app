@@ -10,4 +10,5 @@ export default {
   LIST_TASK: (listID: string, taskID: string) => `/${listID}/${taskID}`,
   TODAY_TASK: (id: string) => `/today/${id}`,
   UPCOMING_TASK: (id: string) => `/upcoming/${id}`,
+  NEW_TASK: (id: string) => `/${id}/new-task`,
 };

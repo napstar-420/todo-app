@@ -36,7 +36,7 @@ export const router = createBrowserRouter(
               <Route path='sticky-wall' element={<StickWallPage />} />
               <Route path='tags' element={<div>Tags</div>} />
               <Route path=':listID' element={<ListPage />}>
-                <Route path='new' element={<CreateTask />} />
+                <Route path='new-task' element={<CreateTask />} />
                 <Route path=':taskID' element={<TaskPage />} />
               </Route>
               <Route path='*' element={<PageNotFound />} />

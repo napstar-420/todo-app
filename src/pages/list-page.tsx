@@ -12,6 +12,7 @@ import messages from '@/lib/messages';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import ListTask from '@/components/list-task';
+import appRoutes from '@/config/app-routes';
 
 const dummyList: List = {
   _id: '123',
@@ -24,42 +25,6 @@ const dummyList: List = {
 const dummySubtasks: Subtask[] = [];
 
 const dummyTasks: Task[] = [
-  {
-    _id: '1',
-    title: 'Task title',
-    description: 'Task description',
-    dueDate: '2024-02-27T01:16:34.700Z',
-    tags: ['tag1', 'tag2', 'tag3'],
-    completed: false,
-    completedAt: '024-01-24T18:41:22.287+00:00',
-    list: dummyList,
-    subtasks: dummySubtasks,
-    subtasksCount: 10,
-  },
-  {
-    _id: '1',
-    title: 'Task title',
-    description: 'Task description',
-    dueDate: '2024-02-27T01:16:34.700Z',
-    tags: ['tag1', 'tag2', 'tag3'],
-    completed: false,
-    completedAt: '024-01-24T18:41:22.287+00:00',
-    list: dummyList,
-    subtasks: dummySubtasks,
-    subtasksCount: 10,
-  },
-  {
-    _id: '1',
-    title: 'Task title',
-    description: 'Task description',
-    dueDate: '2024-02-27T01:16:34.700Z',
-    tags: ['tag1', 'tag2', 'tag3'],
-    completed: false,
-    completedAt: '024-01-24T18:41:22.287+00:00',
-    list: dummyList,
-    subtasks: dummySubtasks,
-    subtasksCount: 10,
-  },
   {
     _id: '1',
     title: 'Task title',
@@ -114,6 +79,7 @@ export default function ListPage() {
       isMounted = false;
       controller.abort();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listID]);
 
   if (loading) {
@@ -143,7 +109,7 @@ export default function ListPage() {
           <div className='px-4 pt-4 pb-2 flex gap-3 items-center'>
             <Input id='filter-tasks' placeholder='Search' />
             <Button variant='secondary' asChild>
-              <NavLink to='new'>New task</NavLink>
+              <NavLink to={appRoutes.NEW_TASK(list._id)}>New task</NavLink>
             </Button>
           </div>
           <TabsContent value='in-progress' className='px-4 flex flex-col gap-4'>
