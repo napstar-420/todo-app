@@ -137,7 +137,7 @@ function TagsSelect({ tags, setTags }: TagsSelectProps) {
         </AlertDescription>
       </Alert>
       <Label htmlFor='add-tags'>Add tags</Label>
-      <div className='mt-2 px-2 py-2 rounded-md flex flex-wrap items-center gap-1 w-full border dark:border-zinc-800'>
+      <div className='mt-2 px-2 py-2 rounded-md flex flex-wrap items-center gap-2 w-full border dark:border-zinc-800'>
         {tags.map((tag, index) => (
           <Badge
             key={index}
@@ -154,7 +154,7 @@ function TagsSelect({ tags, setTags }: TagsSelectProps) {
           id='add-tags'
           type='text'
           autoComplete='off'
-          className='w-auto px-1 flex-1 focus-visible:ring-0 border-none'
+          className='h-auto px-1 py-0 w-24 focus-visible:ring-0 border-none'
           placeholder='Add Tags'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
