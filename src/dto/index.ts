@@ -37,10 +37,13 @@ export interface Tag {
   tasks: Task[];
 }
 
-export interface Subtask {
-  _id: string;
+export interface CreateSubtaskDto {
   title: string;
-  description: string;
+  description?: string;
   completed: boolean;
+}
+
+export interface Subtask extends CreateSubtaskDto {
+  _id: string;
   task: Task;
 }

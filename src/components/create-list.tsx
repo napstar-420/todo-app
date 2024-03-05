@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAxiosPrivate } from '@/hooks/use-axios-private';
 import { toast } from 'sonner';
+import { List } from '@/dto';
+import { useList } from '@/hooks/use-lists';
 import routes from '@/api/routes';
 import appRoutes from '@/config/app-routes';
-import { useList } from '@/hooks/use-lists';
-import { List } from '@/context/list-provider';
 import ListDialog from './list-dialog';
 import config from '@/config';
 
