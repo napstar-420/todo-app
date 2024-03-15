@@ -143,7 +143,7 @@ export function TagsSelect({ tags, setTags }: TagsSelectProps) {
         />
       </div>
       <div
-        className='px-4 py-2 dark:bg-zinc-900 transition-opacity mt-4 rounded-xl absolute w-full'
+        className='px-4 py-2 bg-zinc-200 dark:bg-zinc-900 transition-opacity mt-4 rounded-xl absolute w-full'
         style={{
           display,
           opacity,
