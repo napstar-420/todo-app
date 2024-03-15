@@ -27,6 +27,7 @@ export function TagsSelect({ tags, setTags }: TagsSelectProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [opacity, setOpacity] = useState<1 | 0>(0);
   const [display, setDisplay] = useState<'none' | 'block'>('none');
+  const [error, setError] = useState('')
 
   const clearTag = (tag: string) => {
     tagsInput.current?.focus();
@@ -35,6 +36,13 @@ export function TagsSelect({ tags, setTags }: TagsSelectProps) {
 
   const addTag = (tag: string) => {
     tagsInput.current?.focus();
+
+    if (tag.length > config.MAX_TAG_LENGTH) {
+      setError('A tag should be max 24 characters long');
+      return 'ERROR';
+    }
+
+    setError('');
     const isTagAlreadyExists = tags.findIndex((t) => t === tag) !== -1;
 
     if (
@@ -61,8 +69,10 @@ export function TagsSelect({ tags, setTags }: TagsSelectProps) {
 
   useEffect(() => {
     if (query[query.length - 1] === ' ') {
-      addTag(query);
-      setQuery('');
+      const result = addTag(query);
+      if (result !== 'ERROR') {
+        setQuery('');
+      }
     }
 
     const getTags = async () => {
@@ -102,6 +112,11 @@ export function TagsSelect({ tags, setTags }: TagsSelectProps) {
         </AlertDescription>
       </Alert>
       <Label htmlFor='tags'>Tags</Label>
+      {error && (
+          <small className='block mt-1 text-sm font-medium leading-none text-red-500'>
+            {error}
+          </small>
+        )}
       <div className='mt-2 px-2 py-2 rounded-md flex flex-wrap items-center gap-2 w-full border dark:border-zinc-800'>
         {tags.map((tag, index) => (
           <Badge

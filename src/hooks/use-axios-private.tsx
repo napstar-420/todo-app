@@ -34,10 +34,18 @@ export const useAxiosPrivate = () => {
 
         if (error?.response?.data) {
           const { message } = error?.response?.data as ErrorResponse;
-          toast({
-            title: 'Error',
-            description: message,
-          });
+
+          if (Array.isArray(message)) {
+            toast({
+              title: 'Error',
+              description: message[0],
+            });
+          } else {
+            toast({
+              title: 'Error',
+              description: message,
+            });
+          }
         } else {
           toast({
             title: 'Error',
@@ -52,6 +60,7 @@ export const useAxiosPrivate = () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth, refresh]);
 
   return axiosPrivate;

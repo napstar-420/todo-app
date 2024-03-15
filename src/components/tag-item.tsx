@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Badge } from './ui/badge';
 
 interface TagItemProps {
-  id: string;
+  _id: string;
   name: string;
   href: string;
 }

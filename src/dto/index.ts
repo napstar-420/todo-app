@@ -9,6 +9,27 @@ export interface User {
   lastName: string;
   avatar: string;
 }
+export interface CreateSubtaskDto {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+}
+
+export interface Subtask extends CreateSubtaskDto {
+  _id: string;
+  task: Task;
+}
+
+export interface CreateTaskDto {
+  title: string;
+  description: string;
+  dueDate: string;
+  listID: string;
+  tags: string[];
+  subtasks: CreateSubtaskDto[];
+  completed: boolean;
+}
 
 export interface Task {
   _id: string;
@@ -35,16 +56,4 @@ export interface Tag {
   _id: string;
   name: string;
   tasks: Task[];
-}
-
-export interface CreateSubtaskDto {
-  id: string;
-  title: string;
-  description?: string;
-  completed: boolean;
-}
-
-export interface Subtask extends CreateSubtaskDto {
-  _id: string;
-  task: Task;
 }

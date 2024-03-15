@@ -51,7 +51,7 @@ export default function Sidebar() {
           </small>
           <div className='mt-2 flex flex-wrap gap-2 px-2 py-2'>
             {tags.map((tag) => (
-              <TagItem {...tag} key={tag.id} href={appRoutes.TAG(tag.id)} />
+              <TagItem {...tag} key={tag._id} href={appRoutes.TAG(tag._id)} />
             ))}
           </div>
         </div>

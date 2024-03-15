@@ -1,4 +1,5 @@
 import routes from '@/api/routes';
+import { Tag } from '@/dto';
 import { useAxiosPrivate } from '@/hooks/use-axios-private';
 import {
   Dispatch,
@@ -7,11 +8,6 @@ import {
   createContext,
   useState,
 } from 'react';
-
-interface Tag {
-  id: string;
-  name: string;
-}
 
 interface TagProviderProps {
   children: ReactNode;
