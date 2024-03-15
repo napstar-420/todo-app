@@ -16,6 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { v4 as uuid } from 'uuid';
 import { FaRegCircle } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { FaCircleCheck } from 'react-icons/fa6';
@@ -42,7 +43,16 @@ export function CreateSubtask({ subtasks, setSubtasks }: SubtasksProps) {
 
     try {
       const validatedData = SubtaskSchema.parse({ title, description });
-      setSubtasks([...subtasks, { ...validatedData, completed: false }]);
+      setSubtasks([
+        ...subtasks,
+        {
+          ...validatedData,
+          completed: false,
+          id: uuid()
+        }
+      ]);
+      setTitle('');
+      setDescription('');
     } catch (error) {
       if (error instanceof ZodError) {
         setError(error.errors[0].message);
@@ -102,12 +112,11 @@ export function Subtasks({ subtasks, setSubtasks }: SubtasksProps) {
     });
   }
 
-  function deleteSubtask(index: number) {
-    setSubtasks([...subtasks].splice(index, 1));
-    console.log(subtasks);
+  function deleteSubtask(id: string) {
+    setSubtasks(subtasks.filter(subtask => subtask.id !== id));
   }
 
-  const DeleteBtn = ({ index }: { index: number }) => {
+  const DeleteBtn = ({ id }: { id: string }) => {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -133,7 +142,7 @@ export function Subtasks({ subtasks, setSubtasks }: SubtasksProps) {
             <AlertDialogCancel className='text-zinc-950 dark:text-white'>
               Cancel
             </AlertDialogCancel>
-            <AlertDialogAction onClick={() => deleteSubtask(index)}>
+            <AlertDialogAction onClick={() => deleteSubtask(id)}>
               Continue
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -147,7 +156,7 @@ export function Subtasks({ subtasks, setSubtasks }: SubtasksProps) {
       <Label>Subtasks</Label>
       {subtasks.length ? (
         <Accordion type='single' collapsible className='w-full'>
-          {subtasks.map(({ title, description, completed }, index) => {
+          {subtasks.map(({ title, description, completed, id }, index) => {
             return (
               <AccordionItem key={index} value={`value-${index}`}>
                 <AccordionTrigger>
@@ -171,7 +180,7 @@ export function Subtasks({ subtasks, setSubtasks }: SubtasksProps) {
                 </AccordionTrigger>
                 <AccordionContent>
                   <p>{description}</p>
-                  <DeleteBtn index={index} />
+                  <DeleteBtn id={id} />
                 </AccordionContent>
               </AccordionItem>
             );

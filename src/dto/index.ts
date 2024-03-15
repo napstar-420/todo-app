@@ -38,6 +38,7 @@ export interface Tag {
 }
 
 export interface CreateSubtaskDto {
+  id: string;
   title: string;
   description?: string;
   completed: boolean;
