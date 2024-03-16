@@ -57,3 +57,8 @@ export interface Tag {
   name: string;
   tasks: Task[];
 }
+
+export enum Meridiem {
+  AM = 'AM',
+  PM = 'PM',
+}

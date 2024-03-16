@@ -11,4 +11,7 @@ export const TaskSchema = z.object({
     .max(256, {
       message: 'Task description should be max 256 characters long',
     }),
+  dueDate: z
+    .string({ required_error: 'Due date is required' })
+    .datetime({ message: 'Invalid due date' }),
 });

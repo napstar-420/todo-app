@@ -3,18 +3,17 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ZodError } from 'zod';
 import { Label } from '@radix-ui/react-label';
 import { IoMdClose } from 'react-icons/io';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-
 import { TagsSelect } from '@/components/tags-select';
 import { CreateSubtask, Subtasks } from '@/components/create-subtask';
-
-import { CreateSubtaskDto, CreateTaskDto, Task } from '@/dto';
+import { CreateSubtaskDto, CreateTaskDto, Meridiem, Task } from '@/dto';
 import { TaskSchema } from '@/schemas/task-schema';
 import { useAxiosPrivate } from '@/hooks/use-axios-private';
 import routes from '@/api/routes';
+import { DatePicker } from '@/components/date-picker';
+import { TimePicker } from '@/components/time-picker';
 
 export default function CreateTask() {
   const params = useParams();
@@ -23,17 +22,34 @@ export default function CreateTask() {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [date, setDate] = useState<Date>();
+  const [meridiem, setMeridiem] = useState<Meridiem>();
+  const [hour, setHour] = useState<number>();
+  const [minute, setMinute] = useState<number>();
   const [tags, setTags] = useState<string[]>([]);
   const [subtasks, setSubtasks] = useState<CreateSubtaskDto[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function saveTask() {
+    let dueDate = '';
+
+    if (date && hour) {
+      let adjustedHour = hour;
+      if (meridiem === 'PM' && hour !== 12) {
+        adjustedHour += 12;
+      }
+      const completeDate = new Date(date);
+      completeDate.setHours(adjustedHour, minute);
+      dueDate = completeDate.toISOString();
+    }
+
     // Validation
     try {
-      TaskSchema.parse({ title, description });
+      TaskSchema.parse({ title, description, dueDate });
     } catch (error) {
       if (error instanceof ZodError) {
+        console.log(error.errors);
         setError(error.errors[0].message);
         return;
       }
@@ -81,7 +97,7 @@ export default function CreateTask() {
       </header>
       <main className='px-4 py-4 flex flex-col gap-4'>
         <div className='flex flex-col gap-2'>
-          <Label htmlFor='title'>Task title</Label>
+          <Label htmlFor='title'>Task title*</Label>
           <Input
             id='title'
             type='text'
@@ -90,13 +106,27 @@ export default function CreateTask() {
           />
         </div>
         <div className='flex flex-col gap-2'>
-          <Label htmlFor='description'>Task description</Label>
+          <Label htmlFor='description'>Task description*</Label>
           <Textarea
             id='description'
             rows={5}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <Label htmlFor='due-date'>Due date*</Label>
+          <div className='flex gap-2'>
+            <DatePicker date={date} setDate={setDate} />
+            <TimePicker
+              meridiem={meridiem}
+              hour={hour}
+              minute={minute}
+              setMeridiem={setMeridiem}
+              setHour={setHour}
+              setMinute={setMinute}
+            />
+          </div>
         </div>
         <TagsSelect tags={tags} setTags={setTags} />
         <CreateSubtask subtasks={subtasks} setSubtasks={setSubtasks} />
